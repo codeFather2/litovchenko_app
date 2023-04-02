@@ -1,0 +1,55 @@
+[
+    {
+        "Id": 1,
+        "Name": "Russia",
+        "Provinces": [
+            {
+                "Id": 1,
+                "CountryId": 1,
+                "Name": "Moscow"
+            },
+            {
+                "Id": 2,
+                "CountryId": 1,
+                "Name": "Saint-Petersburg"
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "USA",
+        "Provinces": [
+            {
+                "Id": 3,
+                "CountryId": 2,
+                "Name": "New-York"
+            },
+            {
+                "Id": 4,
+                "CountryId": 2,
+                "Name": "Washington"
+            }
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Great Britain",
+        "Provinces": [
+            {
+                "Id": 5,
+                "CountryId": 3,
+                "Name": "London"
+            },
+            {
+                "Id": 6,
+                "CountryId": 3,
+                "Name": "Liverpol"
+            },
+            {
+                "Id": 7,
+                "CountryId": 3,
+                "Name": "Leicester"
+            }
+        ]
+    }
+]

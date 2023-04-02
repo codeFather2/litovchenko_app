@@ -1,0 +1,8 @@
+POST  https://localhost:7264/api/registration
+content-type: application/json
+
+{
+    "email" : "123@i.com",
+    "password" : "s1",
+    "countryId" : 1 
+}

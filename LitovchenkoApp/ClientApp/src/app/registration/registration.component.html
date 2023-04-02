@@ -1,0 +1,57 @@
+<p *ngIf="!countries?.length"><em>Loading...</em></p>
+<div>
+  <form [formGroup]="registrationForm" class="form-centred">
+    <mat-error *ngIf="registrationError">{{registrationError}}</mat-error>
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step [stepControl]="step1Form">
+        <form [formGroup]="step1Form" class="form-centred">
+          <ng-template matStepLabel>Step 1</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="step1Form.controls['email'].invalid">Login must be a valid email</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Password" formControlName="password" type="password">
+            <mat-error
+              *ngIf="step1Form.controls['password'].invalid">{{getPasswordErrorMessage('password')}}</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password"
+              pattern="{{step1Form.controls['password'].value}}">
+            <mat-error
+              *ngIf="step1Form.controls['confirmPassword'].invalid">{{getPasswordErrorMessage('confirmPassword')}}</mat-error>
+          </mat-form-field>
+          <mat-checkbox formControlName="foodWorkCheck">Agree to work for food</mat-checkbox>
+          <div>
+            <button mat-raised-button matStepperNext [disabled]="step1Form.invalid">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="step2Form">
+        <form [formGroup]="step2Form" (ngSubmit)="onSubmit(stepper)" class="form-centred">
+          <ng-template matStepLabel>Step 2</ng-template>
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="country" (selectionChange)="getProvinces()">
+              <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="step2Form.controls['country'].invalid">Select a country</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Province</mat-label>
+            <mat-select formControlName="province">
+              <mat-option *ngFor="let province of provinces" [value]="province.id">{{ province.name }}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="step2Form.controls['province'].invalid">Select a province</mat-error> 
+          </mat-form-field>
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button type="submit" [disabled]="registrationForm.invalid">Save</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+</div>
