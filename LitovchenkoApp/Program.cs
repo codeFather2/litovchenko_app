@@ -29,7 +29,7 @@ app.UseExceptionHandler("/exception");
 
 using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 using (var context = scope.ServiceProvider.GetService<DbAppContext>())
-    context!.Database.Migrate();
+    context!.Database.EnsureCreated();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

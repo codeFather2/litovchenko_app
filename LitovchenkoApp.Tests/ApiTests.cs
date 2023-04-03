@@ -15,6 +15,7 @@ namespace LitovchenkoApp.Tests
         private const string validPassword = "1s";
         private const string registrationUrl = "api/registration";
         private const string countriesUrl = "api/countries";
+        private const string provincesUrl = "api/countries";
 
         public IntegrationApiTests(TestWebApplicationFactory<Program> factory)
         {
@@ -33,7 +34,10 @@ namespace LitovchenkoApp.Tests
                 Assert.Equal(3, deserializedData.Length);
                 foreach(var country in deserializedData)
                 {
-                    Assert.True(country.Provinces.Count >= 2);
+                    response = await client.GetAsync(provincesUrl + $"?countryId={country.Id}");
+                    response.EnsureSuccessStatusCode();
+                    var provinces = JsonSerializer.Deserialize<Province[]>(response.Content.ReadAsStream(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    Assert.True(provinces!.Length >= 2);
                 }
             }
         }
