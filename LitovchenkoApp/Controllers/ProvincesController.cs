@@ -14,7 +14,7 @@ public class ProvincesController : ControllerBase
     }
 
     [HttpGet]
-    public IResult Get(int countryId)
-    => Results.Ok(provincesRepo.GetProvinces(countryId));
+    public IResult GetProvincesForCountry(int countryId)
+    => Results.Ok(provincesRepo.GetProvincesForCountry(countryId));
 
 }

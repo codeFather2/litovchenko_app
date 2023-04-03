@@ -24,6 +24,6 @@ public class ProvincesRepository
         return await db.SaveChangesAsync();
     }
 
-    public IEnumerable<Province> GetProvinces(int countryId)
+    public IEnumerable<Province> GetProvincesForCountry(int countryId)
     => db.Provinces.Where(p => p.CountryId == countryId);
 }
