@@ -39,7 +39,7 @@
               *ngIf="step2Form.controls['country'].invalid">Select a country</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Province</mat-label>
+            <mat-label>{{provinces.length == 0 ? 'Loading' : 'Province'}}</mat-label>
             <mat-select formControlName="province">
               <mat-option *ngFor="let province of provinces" [value]="province.id">{{ province.name }}</mat-option>
             </mat-select>

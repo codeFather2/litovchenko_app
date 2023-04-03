@@ -64,6 +64,8 @@ export class RegistrationComponent{
       if (!currentCountryId?.value){
         return;
       }
+      this.provinces = [];
+      this.step2Form.get('province')?.setValue(null);
       this.http.get<Province[]>(this.baseUrl + 'api/provinces', {params : new HttpParams().set('countryId', currentCountryId.value)}).subscribe(result => {
         this.provinces = result;
       }, error => {console.log(error)})
