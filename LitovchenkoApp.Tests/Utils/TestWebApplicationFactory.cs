@@ -34,7 +34,7 @@ namespace LitovchenkoApp.Tests.Utils
                 var provider = services.BuildServiceProvider();
                 using (var scope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 using (var context = scope.ServiceProvider.GetService<DbAppContext>())
-                    context.Database.EnsureCreated();
+                    context!.Database.EnsureCreated();
             });
 
             builder.UseEnvironment("Development");
