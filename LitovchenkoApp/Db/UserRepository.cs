@@ -3,6 +3,7 @@ namespace LitovchenkoApp.Db;
 using LitovchenkoApp.Models;
 using LitovchenkoApp.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using LitovchenkoApp.Logging;
 
 public class UserRepository
 {
@@ -22,7 +23,12 @@ public class UserRepository
             throw new RecordAlreadyExistsException($"User with email {user.Email} already exists");
         }
         db.Users.Add(user);
-        return await db.SaveChangesAsync();
+        var result = await db.SaveChangesAsync();
+        if (result >= 0)
+        {
+            logger.LogInformation(LoggingEvents.DbCrud, "User {user} created with id {id}", user.Email, user.Id);
+        }
+        return result;
     }
 
     public async Task<User?> GetUser(string email)

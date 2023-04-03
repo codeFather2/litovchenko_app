@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using LitovchenkoApp.Db;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,14 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.RequestPath | HttpLoggingFields.RequestBody;
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+
+});
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DbAppContext>();
 builder.Services.AddScoped<UserRepository>();

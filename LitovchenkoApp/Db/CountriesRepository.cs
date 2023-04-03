@@ -2,6 +2,7 @@ namespace LitovchenkoApp.Db;
 
 using LitovchenkoApp.Models;
 using LitovchenkoApp.Exceptions;
+using LitovchenkoApp.Logging;
 
 public class CountriesRepository
 {
@@ -21,7 +22,12 @@ public class CountriesRepository
             throw new RecordAlreadyExistsException($"Country {country.Name} already exists");
         }
         db.Countries.Add(country);
-        return await db.SaveChangesAsync();
+        var result = await db.SaveChangesAsync();
+        if (result >= 0)
+        {
+            logger.LogInformation(LoggingEvents.DbCrud, "Country {country} created with id {id}", country.Name, country.Id);
+        }
+        return result;
     }
 
     public IEnumerable<Country> GetCountries()
